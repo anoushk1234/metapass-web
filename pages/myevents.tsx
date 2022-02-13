@@ -24,22 +24,6 @@ const MyEvents = () => {
 
     const [wallet] = useContext(walletContext)
     const [link, setLink] = useState(null)
-    // const [event, setEvent] = useState(null)
-
-    // useEffect(() => {
-    //     const fetchDataofwalletaddressfromfirebase = async () => {
-    //         const docRef = doc(db, 'users', wallet.address)
-    //         const docSnap = await getDoc(docRef)
-    //         if (docSnap.exists) {
-    //             const data = docSnap.data()
-    //             setEvent(data)
-    //         } else {
-    //             setEvent(null)
-    //         }
-    //     }
-    //     fetchDataofwalletaddressfromfirebase()
-    // }, [wallet.address])
-    // console.log(wallet)
 
     useEffect(() => {
         const getSecrets = async () => {
@@ -47,7 +31,7 @@ const MyEvents = () => {
                 if (wallet.address) {
                     windowType = window
                     const contractAddress =
-                        '0xD9b5a4Efe3f6e43C3b437B495dDB8668A3a3258d'
+                        process.env.NEXT_PUBLIC_CONTRACT_ADDRESS
                     const provider = new ethers.providers.Web3Provider(
                         window.ethereum
                     )

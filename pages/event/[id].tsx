@@ -63,7 +63,7 @@ function ID() {
     }, [id])
 
     const mintTicket = async () => {
-        const contractAddress = '0xD9b5a4Efe3f6e43C3b437B495dDB8668A3a3258d'
+        const contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS
         const provider = new ethers.providers.Web3Provider(window.ethereum)
         const signer = provider.getSigner()
 
@@ -105,7 +105,11 @@ function ID() {
 
                 let tokenIdTxn = await metapass.getLastTokenId()
                 let tokenId = ethers.BigNumber.from(tokenIdTxn._hex).toNumber()
-                const opensea = `https://opensea.io/assets/matic/0xd9b5a4efe3f6e43c3b437b495ddb8668a3a3258d/${tokenId}`
+                const opensea = `https://${
+                    process.env.NEXT_PUBLIC_CHAIN_ID == '0x13881'
+                        ? 'testnet.'
+                        : false
+                }opensea.io/assets/matic/${contractAddress}/${tokenId}`
 
                 if (id) {
                     let docRef: any = doc(db, 'events', id.toString())
